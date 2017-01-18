@@ -8,6 +8,7 @@ TINYG PLOTTER - Main screen
 import os
 from helpers.menu import menu
 from helpers.about import main as about
+from helpers.quit import main as quit
 
 def main():
     menu_width = 32
@@ -28,6 +29,8 @@ def main():
     selection = input(" Select: ")      # wait for user selection
     if (selection == "a" or selection == "A"):
         about()
+    elif (selection == "q" or selection == "Q"):
+        quit()
     else:
         os.system("clear")
         print("Wrong entry")

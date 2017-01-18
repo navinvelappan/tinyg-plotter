@@ -7,6 +7,7 @@ About info
 
 import os
 from helpers.menu import menu
+from helpers.quit import main as quit
 
 def main():
     menu_width = 26
@@ -17,7 +18,7 @@ def main():
                  "Q - Quit"]
 
     os.system("clear")
-    print(menu(menu_width,title, active_menu, menu_description, menu_list))
+    print(menu(menu_width, title, active_menu, menu_description, menu_list))
 
     input(" Select: ")
 
