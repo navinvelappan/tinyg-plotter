@@ -6,22 +6,21 @@ Function takes title string, menu_name string and menu_content list and returns
 string formatted as menu.
 """
 
-def menu(title, menu_name, menu_content):
-    width_title = len(title)+len(menu_name) + 5         # number of characters in first line + 5
-    width_content = len(max(menu_content, key=len)) + 4 # number of characters in longest list entry + 4
-    width = max(15,width_title,width_content)           # menu width, min 15 characters
-
+def menu(width, title, menu_name, menu_description, menu_content):
     # menu string
     return (" " + title + " [" + menu_name + "]\n" + width*"="
-            + "\n  " + "\n  ".join(menu_content) + "\n" + width*"-")
+            + "\n" + menu_description + "\n" + width*"-" + "\n  "
+            + "\n  ".join(menu_content) + "\n" + width*"-")
 
 def main():
+    width = 25
     title = "TITLE"
     menu_name = "Main menu"
+    menu_description = "Description goes here..."
     menu_content = ["A - About",
                     "Q - Quit"]
 
-    print(menu(title, menu_name, menu_content))
+    print(menu(25,title, menu_name, menu_description, menu_content))
 
 if __name__ == '__main__':
     main()
