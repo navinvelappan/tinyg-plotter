@@ -20,9 +20,9 @@ def main_menu():
                  "A - About",
                  "Q - Quit"]
 
-    os.system("clear")      # clear screen
-    print(menu(menu_width,title, active_menu, menu_description, menu_list))     # print menu
-    selection = input("Select: ").lower()      # wait for user selection
+    os.system("clear")
+    print(menu(menu_width,title, active_menu, menu_description, menu_list))
+    selection = input("Select: ").lower()
     if selection == "c":
         connect()
     elif selection == "a":
@@ -39,12 +39,16 @@ def connect():
     active_menu = "Connected"
     menu_description = "Sucesfully connected"
     menu_list = ["H - Home TinyG Plotter",
+                 "G - Go to position",
                  "M - Main menu",
                  "Q - Quit"]
     os.system("clear")
 
-    # connection details goes here
-    ser = serial.Serial(port="/dev/cu.usbserial-DN00WNBE",baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=1, xonxoff=False, rtscts=True, write_timeout=None, dsrdtr=False, inter_byte_timeout=None)
+    # connection details
+    ser = serial.Serial(port="/dev/cu.usbserial-DN00WNBE",baudrate=115200,
+                        bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
+                        stopbits=serial.STOPBITS_ONE, timeout=1, xonxoff=False,
+                        rtscts=True, write_timeout=None, dsrdtr=False, inter_byte_timeout=None)
     ser.close()
     os.system("clear")
     print(menu(menu_width, title, active_menu, menu_description, menu_list))
@@ -54,12 +58,22 @@ def connect():
         main_menu()
     elif selection == "q":
         close()
+    # homing
     elif selection == "h":
         ser.open()
-        sleep(0.5)
         ser.write(str.encode("g28.2x0y0\n"))
         ser.readlines()
         ser.close()
+        connect()
+    # go to position
+    elif selection == "g":
+        os.system("clear")
+        position = input("Input position in format [x?y?] ")
+        ser.open()
+        ser.write(str.encode("g0" + position + "\n"))
+        ser.readlines()
+        ser.close()
+        connect()
     else:
         invalid_selection()
 
