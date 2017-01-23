@@ -40,6 +40,7 @@ def connect():
     menu_description = "Sucesfully connected"
     menu_list = ["H - Home TinyG Plotter",
                  "G - Go to position",
+                 "S - Status",
                  "M - Main menu",
                  "Q - Quit"]
     os.system("clear")
@@ -73,6 +74,17 @@ def connect():
         ser.write(str.encode("g0" + position + "\n"))
         ser.readlines()
         ser.close()
+        connect()
+    # status
+    elif selection == "s":
+        os.system("clear")
+        ser.open()
+        ser.write(str.encode("?\n"))
+        status = ser.readlines()
+        ser.close()
+        st = b"" .join(status)
+        print(st.decode("UTF-8"))
+        input("Press Enter to continue...")
         connect()
     else:
         invalid_selection()
